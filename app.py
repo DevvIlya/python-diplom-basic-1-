@@ -21,16 +21,17 @@ class DownloadsPhoto:
     
     def downloads_photo_from_vk(self):
         os.chdir(self.direct)
+
         url_vk = 'https://api.vk.com/method/photos.get'
         params_vk = {
         'owner_id': self.user_id,
         'album_id': 'profile',
-        'extended': '1',
+        'extended': '2',
         'access_token': self.token_vk,
         'v':'5.131'
     }
         res = requests.get(url_vk, params=params_vk)
-        bar = Bar('Скачивание фото', max=len(res.json()['response']['items']))
+        bar = Bar('downloads photo', max=len(res.json()['response']['items']))
         list_name_fils_by_likes = []
         list_name_fils_by_date = []
         for i in res.json()['response']['items']:
@@ -54,7 +55,7 @@ class DownloadsPhoto:
             logs_list = []
             download_log = {'file_name': name, 'size': self.size}
             logs_list.append(download_log)
-            with open(f'{self.direct}/log.json', 'a') as file:
+            with open(f'{self.direct}log.json', 'a+') as file:
                 json.dump(logs_list, file, indent=2)
 
 
@@ -70,8 +71,10 @@ class UploadPhoto:
         self.direct = r'download'
         self.number_of_files_to_send = 5
 
-    def uploading_files_to_yandex_disk(self,path):
+
+    def uploading_files_to_yandex_disk(self, path):
         os.chdir(self.direct)
+
         files_list = [name for name in os.listdir(self.direct) if name.endswith(".jpg")]
         bar = Bar('Отправление файлов на Я.диск', max=len(files_list))
         count = 0
