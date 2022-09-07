@@ -68,14 +68,12 @@ class UploadPhoto:
 
     def __init__(self, token_yandex: str):
         self.token_yandex = token_yandex
-        self.direct = r'download'
         self.number_of_files_to_send = 5
 
 
     def uploading_files_to_yandex_disk(self, path):
-        os.chdir(self.direct)
 
-        files_list = [name for name in os.listdir(self.direct) if name.endswith(".jpg")]
+        files_list = [name for name in os.listdir() if name.endswith(".jpg")]
         bar = Bar('Отправление файлов на Я.диск', max=len(files_list))
         count = 0
         number_of_sent = 0
