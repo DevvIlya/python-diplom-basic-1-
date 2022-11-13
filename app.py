@@ -5,7 +5,7 @@ import time
 from progress.bar import Bar
 from pprint import pprint
 
-id = '8114389'
+id = ''
 token_vk = ''
 token_yandex = ''
 
